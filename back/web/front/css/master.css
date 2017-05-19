@@ -1,15 +1,36 @@
+
+.entete{
+  text-align: center;
+  color:#EEEEEE;
+  background-color: #222831!important;
+}
+
+h1{
+  margin-top:100px!important;
+  margin-bottom:100px!important;
+  display:inline-block;
+}
+
+body{
+  background-color: #EEEEEE!important;
+}
+
+.btn-primary{
+  background-color: #0092CA;
+}
+
+.btn:hover{
+  background-color:= Light(#0092CA, 80);
+}
 div[boughtData=true]{
   text-decoration: line-through;
   font-style: italic;
-  color: grey;
+  color:grey;
 }
 
-h1 {
-  color: white;
-  padding: 40px 0;
-}
-
-
-body {
-  background-color: #eeeeee;
+.imglogo{
+  height: 90px;
+  display:inline-block;
+  margin-bottom:40px;
+  color:white;
 }

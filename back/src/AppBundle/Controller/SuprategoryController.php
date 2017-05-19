@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Suprategory controller.
  *
- * @Route("suprategory")
+ * @Route("/suprategory")
  */
 class SuprategoryController extends Controller
 {

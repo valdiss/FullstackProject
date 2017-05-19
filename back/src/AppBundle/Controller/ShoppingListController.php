@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Shoppinglist controller.
  *
- * @Route("shoppinglist")
+ * @Route("/shoppinglist")
  */
 class ShoppingListController extends Controller
 {

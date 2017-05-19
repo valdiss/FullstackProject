@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Product controller.
  *
- * @Route("product")
+ * @Route("/product")
  */
 class ProductController extends Controller
 {
