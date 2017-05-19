@@ -2,42 +2,55 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * ShoppingList
+ *
+ * @ORM\Table(name="shopping_list")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ShoppingListRepository")
  */
 class ShoppingList
 {
     /**
-     * @var integer
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /**
-     * @var \AppBundle\Entity\User
-     */
-    private $user;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * Get id
+     *
+     * @return int
      */
-    private $products;
+    public function getId()
+    {
+        return $this->id;
+    }
 
+
+
+
+  /**
+   * @ORM\ManyToOne(targetEntity="User", inversedBy="shoppinglists")
+   * @ORM\JoinColumn(name="shoppinglist_id", referencedColumnName="id")
+   */
+  private $user;
+
+  /**
+   * @ORM\OneToMany(targetEntity="Product", mappedBy="shoppinglist")
+   */
+  private $products;
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
