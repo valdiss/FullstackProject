@@ -24,15 +24,17 @@
       <div class="col-md-6">
         <ul>
           <li ng-repeat='item in list'>{{item.article}}</li>
+          <button type="button" name="button">supprimer</button>
         </ul>
       </div>
 
       <div class="col-md-6">
         <form novalidate class="simple-form">
-          <label>Article: <input type="text" ng-model="newItem.article" /></label><br />
-          <label>Quantity: <input type="email" ng-model="newItem.quantity" /></label><br />
+          <label>Article: <input type="text" ng-model="newItem.article" required /></label><br />
+          <label>Quantity: <input type="number" ng-model="newItem.quantity" min=1 required/></label><br />
+          
           <input type="button" ng-click="reset()" value="Reset" />
-          <input type="submit" ng-click="create()" value="Save" />
+          <input type="button" ng-click="create()" value="Save" />
         </form>
       </div>
     </div>
