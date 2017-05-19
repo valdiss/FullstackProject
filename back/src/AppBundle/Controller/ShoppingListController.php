@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Shoppinglist controller.
  *
- * @Route("shoppinglist")
+ * @Route("/shoppinglist")
  */
 class ShoppingListController extends Controller
 {
