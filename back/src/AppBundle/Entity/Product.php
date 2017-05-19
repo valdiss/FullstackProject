@@ -12,6 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    /**
+     * Constructor
+     */
+    public function __construct($shoppingList, $category, $name, $quantity)
+    {
+      $this->setShoppingList($shoppingList);
+      $this->setCategory($category);
+      $this->setName($name);
+      $this->setQuantity($quantity);
+      $this->setBought(false);
+    }
+
   /**
    * @var int
    *
@@ -57,13 +69,11 @@ class Product
    * Set name
    *
    * @param string $name
-   *
    * @return Product
    */
   public function setName($name)
   {
     $this->name = $name;
-
     return $this;
   }
 

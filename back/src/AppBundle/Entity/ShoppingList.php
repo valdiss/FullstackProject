@@ -12,102 +12,123 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ShoppingList
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+  /**
+   * Constructor
+   */
+  public function __construct($user, $name)
+  {
+    $this->setUser($user);
+    $this->setName($name);
+    $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
-
+  /**
+   * @var int
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
+  /**
+   * Get id
+   *
+   * @return int
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
   /**
    * @ORM\ManyToOne(targetEntity="User", inversedBy="shoppinglists")
-   * @ORM\JoinColumn(name="shoppinglist_id", referencedColumnName="id")
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
    */
   private $user;
+  /**
+   * Set user
+   *
+   * @param \AppBundle\Entity\User $user
+   * @return ShoppingList
+   */
+  public function setUser(\AppBundle\Entity\User $user = null)
+  {
+    $this->user = $user;
+    return $this;
+  }
+  /**
+   * Get user
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Name", type="string", length=255, unique=false)
+   */
+  private $name;
+  /**
+   * Set name
+   *
+   * @param string $name
+   * @return ShoppingList
+   */
+  public function setName($name)
+  {
+    $this->name = $name;
+    return $this;
+  }
+
+  /**
+   * Get name
+   *
+   * @return string
+   */
+  public function getName()
+  {
+    return $this->name;
+  }
 
   /**
    * @ORM\OneToMany(targetEntity="Product", mappedBy="shoppinglist")
    */
   private $products;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return ShoppingList
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
+  /**
+   * Add product
+   *
+   * @param \AppBundle\Entity\Product $product
+   *
+   * @return ShoppingList
+   */
+  public function addProduct(\AppBundle\Entity\Product $product)
+  {
+    $this->products[] = $product;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * Remove product
+   *
+   * @param \AppBundle\Entity\Product $product
+   */
+  public function removeProduct(\AppBundle\Entity\Product $product)
+  {
+    $this->products->removeElement($product);
+  }
 
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Add product
-     *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return ShoppingList
-     */
-    public function addProduct(\AppBundle\Entity\Product $product)
-    {
-        $this->products[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \AppBundle\Entity\Product $product
-     */
-    public function removeProduct(\AppBundle\Entity\Product $product)
-    {
-        $this->products->removeElement($product);
-    }
-
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
+  /**
+   * Get products
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getProducts()
+  {
+    return $this->products;
+  }
 }
