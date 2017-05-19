@@ -14,10 +14,29 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     data:{}
   }
 
+  $scope.list = [
+    { article: "Book", quantity: 55, bought: false, action: "create" },
+    { article: "Book", quantity: 55, bought: false, action: "create" },
+    { article: "Book", quantity: 55, bought: false, action: "create" },
+    { article: "Book", quantity: 55, bought: false, action: "create" }
+  ];
+
   $scope.reset = function(){
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
-  }
+  };
+
+  $scope.create = function(){
+    newItem = {
+      article: $scope.newItem.article,
+      quantity: $scope.newItem.quantity,
+      bought: false,
+      action: 'create'
+    }
+    console.log(newItem);
+    $scope.newItem.article = '';
+    $scope.newItem.quantity = '';
+  };
 
 
    let getList =function(){
