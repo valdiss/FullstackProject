@@ -1,29 +1,39 @@
 var shoppingList = angular.module('shoppingList', []);
-shoppingList.controller('shoppingListController', function shoppingListController($scope) {
 
-  var getList = {
+shoppingList.controller('shoppingListController', function shoppingListController($scope,$http) {
+
+//configuration des parametres la methode get
+  var get = {
     method: 'GET',
     url: '/someUrl'
   };
-
-  var postList = {
+//configuration des parametres la methode post
+  var post = {
     method : 'POST',
     url: '/someUrl',
     data:{}
   }
 
-  function reset (){
+  $scope.reset = function(){
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
   }
 
-  $http(getList).then(function successCallback(response) {
+
+   let getList =function(){
+     $http(get).then(function successCallback(response) {
     // this callback will be called asynchronously
     // when the response is available
     $scope.list = response;
   }, function errorCallback(response) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
-  });
+  })
+};
+
+//Appel de getList au chargement du DOM
+  angular.element(document).ready(function () {
+      getList();
+  })
 
 });
