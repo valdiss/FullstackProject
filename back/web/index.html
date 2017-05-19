@@ -4,18 +4,17 @@
 <head>
   <meta charset="utf-8">
   <title>ShoppingList</title>
-  <link rel="stylesheet" href="front/css/master.css">
   <link rel="stylesheet" href="front/css/bootstrap.min.css">
+  <link rel="stylesheet" href="front/css/master.css">
   <script src="front/js/angular.js" charset="utf-8"></script>
+  <link rel="icon" href="favico.ico" />
 </head>
 
 <body>
   <div class="header">
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse entete">
       <div class="container-fluid">
-        <div>
-          <img alt="TriAngular" class="center-block" src="http://kaanguven.com/uploads/images/triangle.png">
-        </div>
+          <h1>My Shopping List</h1>
       </div>
     </nav>
   </div>
@@ -43,8 +42,8 @@
             <option value="fresh">Ultra Frais</option>
             <option value="other">Autre</option>
           </select></label><br>
-          <input type="button" ng-click="reset()" value="Reset" />
-          <input type="button" ng-click="create()" value="Save" />
+          <input type="button" ng-click="reset()" value="Reset" class="btn btnn" />
+          <input type="button" ng-click="create()" value="Save" class="btn btnn"/>
         </form>
       </div>
     </div>
