@@ -24,9 +24,9 @@
       <div class="col-md-6">
         <div ng-repeat='item in list'>
           <div class="row">
-            <div class="col-md-6">{{item.article}} : {{item.quantity}}, {{item.category}}</div>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}, {{item.category}}</div>
             <div class="col-md-6">
-              <button type="button" name="button" class="btn btn-success">-OK-</button></button>
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
             </div>
           </div>
           <hr>
