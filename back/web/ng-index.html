@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app='shoppingList'>
+
+<head>
+  <meta charset="utf-8">
+  <title>ShoppingList</title>
+  <link rel="stylesheet" href="front/css/bootstrap.min.css">
+  <link rel="stylesheet" href="front/css/master.css">
+  <script src="front/js/angular.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <div class="header">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div>
+          <h1 class="text-center">My Shopping List</h1>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div ng-controller='shoppingListController' class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2>Sec</h2>
+          <div class="row" ng-if="item.category === 'sec'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <h2>FL</h2>
+          <div class="row" ng-if="item.category === 'FL'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <h2>UF</h2>
+          <div class="row" ng-if="item.category === 'uf'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <h2>autre</h2>
+          <div class="row" ng-if="item.category === 'autre'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <form novalidate class="simple-form">
+          <div class="form-group">
+            <label>Article: </label>
+            <input type="text" ng-model="newItem.article" required class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Quantity: </label>
+            <input type="number" ng-model="newItem.quantity" min=1 required/>
+          </div>
+          <div class="form-group">
+            <label>Category:</label>
+            <select ng-model="newItem.category" class="form-control">
+              <option value="dry">Sec</option>
+              <option value="fruitsAndVegetables">Fruits et Légumes</option>
+              <option value="fresh">Ultra Frais</option>
+              <option value="other">Autre</option>
+            </select>
+          </div>
+          <input type="button" ng-click="reset()" value="Reset" class="btn btn-primary" />
+          <input type="submit" ng-click="create()" value="Save" class="btn btn-primary"/>
+        </form>
+      </div>
+    </div>
+    <button type="button" name="button" class="btn btn-success" ng-click="getList()">Refresh</button>
+  </div>
+</body>
+<script src="front/js/app.js" charset="utf-8"></script>
+
+</html>

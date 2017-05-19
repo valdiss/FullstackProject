@@ -11,33 +11,34 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
 
   posturl = '/myshoppinglist';
 
-  $scope.list = [
+  $scope.list=[{
+      "product": "Pomme",
+      "quantity": "5",
+      "bought": "false",
+      "category": 'FL'
+    },
     {
-      article: "Book",
-      quantity: 55,
-      bought: false,
-      action: "create"
-    }, {
-      article: "Book",
-      quantity: 55,
-      bought: false,
-      action: "create"
-    }, {
-      article: "Book",
-      quantity: 55,
-      bought: false,
-      action: "create"
-    }, {
-      article: "Book",
-      quantity: 55,
-      bought: false,
-      action: "create"
+      "product": "Poire",
+      "quantity": "2",
+      "bought": "false",
+      "category": 'FL'
+    },
+    {
+      "product": "kiwi",
+      "quantity": "25",
+      "bought": "false",
+      "category": 'FL'
+    },
+    {
+      "product": "savon",
+      "quantity": "25",
+      "bought": "false",
+      "category": 'autre'
     }
   ];
 
   //fonction de reset des champs du formulaire
   $scope.reset = function() {
-
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
   };
@@ -51,10 +52,14 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $scope.newItem.quantity = '';
     //post de l'item créé à la base de donnée
     $http.post(posturl, newItem).then(function successCallback(response) {
-      console.log('post success : ' + response);
+      console.log('post success : ' + response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
     })
+  };
+
+  $scope.buy = function(item) {
+    item.bought = true;
   };
 
   //fonction de raffraichissement afin d'actualiser
@@ -62,7 +67,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      $scope.list = response;
+      $scope.list = response.data;
       console.log('getList success');
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
@@ -75,7 +80,9 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      $scope.list = response;
+
+      $scope.list = response.data;
+      console.log($scope.list);
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.

@@ -1,3 +1,4 @@
+
 .entete{
   text-align: center;
   color:#EEEEEE;
@@ -20,4 +21,9 @@ body{
 
 .btn:hover{
   background-color:= Light(#0092CA, 80);
+}
+div[boughtData=true]{
+  text-decoration: line-through;
+  font-style: italic;
+  color: grey;
 }
