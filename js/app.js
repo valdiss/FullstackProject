@@ -31,9 +31,11 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
       article: $scope.newItem.article,
       quantity: $scope.newItem.quantity,
       bought: false,
-      action: 'create'
+      action: 'create',
+      category: $scope.newItem.category
     }
     console.log(newItem);
+    $scope.list.push(newItem);
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
   };
