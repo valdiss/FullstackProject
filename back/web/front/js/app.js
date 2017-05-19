@@ -13,21 +13,33 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
 
   $scope.list=[{
       "product": "Pomme",
-      "quantity": "5",
-      "bought": "false",
-      "category": 'FL'
+      "quantity": 5,
+      "bought": false,
+      "category": 'fruitsAndVegetables'
     },
     {
       "product": "Poire",
-      "quantity": "2",
-      "bought": "false",
-      "category": 'FL'
+      "quantity": 2,
+      bought: false,
+      "category": 'fruitsAndVegetables'
     },
     {
-      "product": "kiwi",
-      "quantity": "25",
-      "bought": "false",
-      "category": 'FL'
+      "product": "Kiwi",
+      "quantity": 25,
+      bought: false,
+      "category": 'fruitsAndVegetables'
+    },
+    {
+      "product": "Savon",
+      "quantity": 25,
+      "bought": false,
+      "category": 'other'
+    },
+    {
+      "product": "Bonbons",
+      "quantity": 25,
+      "bought": false,
+      "category": 'dry'
     }
   ];
 
@@ -46,7 +58,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $scope.newItem.quantity = '';
     //post de l'item créé à la base de donnée
     $http.post(posturl, newItem).then(function successCallback(response) {
-      console.log('post success : ' + response.data);
+      console.log('post success, here\'s the response: ' + response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
     })
@@ -54,8 +66,14 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
 
   $scope.buy = function(item) {
     item.bought = true;
+    newChange = JSON.stringify(item);
+    $http.post(posturl, newChange).then(function successCallback(response) {
+      console.log('change success, here\'s the response: ' + response.data);
+    }, function errorCallback(response) {
+      console.log('error on the post method');
+    })
   };
-  
+
   //fonction de raffraichissement afin d'actualiser
   $scope.getList = function() {
     $http(get).then(function successCallback(response) {

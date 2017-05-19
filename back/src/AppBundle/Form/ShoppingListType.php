@@ -15,7 +15,7 @@ class ShoppingListType extends AbstractType
     {
         $builder->add('user');
     }
-    
+
     /**
      * {@inheritdoc}
      */
