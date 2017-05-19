@@ -72,8 +72,9 @@ class User
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($name)
     {
+      $this->setName($name);
         $this->shoppinglists = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

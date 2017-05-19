@@ -39,7 +39,7 @@ class DefaultController extends Controller
     public function megaAction(Request $request)
     {
 
-        $postparams = $request->request->all();
+        $postparams = json_decode($request->getContent());
 
         return new Response(print_r($postparams, true)) ;
 
