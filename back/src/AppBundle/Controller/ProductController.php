@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class ProductController extends Controller
 {
-  /**
+    /**
    * Creates a new product entity.
    *
    * @Route("/{userID}/{shoppingListID}/new", name="product_new")
@@ -24,28 +24,28 @@ class ProductController extends Controller
    */
   public function newAction(Request $request, $userID, $shoppingListID)
   {
-    if($userID<1) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    if($shoppingListID<1) {
-      return new JsonResponse(array('error' => 'shoppingList'));
-    }
-    $em = $this->getDoctrine()->getManager();
-    $user = $em->getRepository('AppBundle:User')->find($userID);
-    if($user==NULL) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
-    if($shoppingListID>count($shoppingLists)) {
-      return new JsonResponse(array('error' => 'shoppingList'));
-    }
-    $shoppingList = $shoppingLists[$shoppingListID-1];
+      if ($userID<1) {
+          return new JsonResponse(array('error' => 'user'));
+      }
+      if ($shoppingListID<1) {
+          return new JsonResponse(array('error' => 'shoppingList'));
+      }
+      $em = $this->getDoctrine()->getManager();
+      $user = $em->getRepository('AppBundle:User')->find($userID);
+      if ($user==null) {
+          return new JsonResponse(array('error' => 'user'));
+      }
+      $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
+      if ($shoppingListID>count($shoppingLists)) {
+          return new JsonResponse(array('error' => 'shoppingList'));
+      }
+      $shoppingList = $shoppingLists[$shoppingListID-1];
 
-    $product = new Product($shoppingList, null, "Lait", 12);
-    $em->persist($product);
-    $em->flush();
+      $product = new Product($shoppingList, null, "Lait", 12);
+      $em->persist($product);
+      $em->flush();
 
-    return $this->redirectToRoute('shoppinglist_show', array('userID' => $userID, 'shoppingListID' => $shoppingListID));
+      return $this->redirectToRoute('shoppinglist_show', array('userID' => $userID, 'shoppingListID' => $shoppingListID));
   }
 
   /**
@@ -56,42 +56,42 @@ class ProductController extends Controller
    */
   public function showAction(Request $request, $userID, $shoppingListID, $productID)
   {
-    if($userID<1) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    if($shoppingListID<1) {
-      return new JsonResponse(array('error' => 'shoppingList'));
-    }
-    if($productID<1) {
-      return new JsonResponse(array('error' => 'product'));
-    }
-    $em = $this->getDoctrine()->getManager();
-    $user = $em->getRepository('AppBundle:User')->find($userID);
-    if($user==NULL) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
-    if($shoppingListID>count($shoppingLists)) {
-      return new JsonResponse(array('error' => 'shoppingList'));
-    }
-    $shoppingList = $shoppingLists[$shoppingListID-1];
-    $products = $em->getRepository('AppBundle:ShoppingList')->findByShoppingList($shoppingListID);
-    if($productID>count($products)) {
-      return new JsonResponse(array('error' => 'product'));
-    }
-    $product = $products[$productID-1];
+      if ($userID<1) {
+          return new JsonResponse(array('error' => 'user'));
+      }
+      if ($shoppingListID<1) {
+          return new JsonResponse(array('error' => 'shoppingList'));
+      }
+      if ($productID<1) {
+          return new JsonResponse(array('error' => 'product'));
+      }
+      $em = $this->getDoctrine()->getManager();
+      $user = $em->getRepository('AppBundle:User')->find($userID);
+      if ($user==null) {
+          return new JsonResponse(array('error' => 'user'));
+      }
+      $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
+      if ($shoppingListID>count($shoppingLists)) {
+          return new JsonResponse(array('error' => 'shoppingList'));
+      }
+      $shoppingList = $shoppingLists[$shoppingListID-1];
+      $products = $em->getRepository('AppBundle:ShoppingList')->findByShoppingList($shoppingListID);
+      if ($productID>count($products)) {
+          return new JsonResponse(array('error' => 'product'));
+      }
+      $product = $products[$productID-1];
 
-    $tmp = array(
+      $tmp = array(
       "id" => $product->getId(),
       "name" => $product->getName(),
       "quantity" => $product->getQuantity(),
       "bought" => $product->getBought());
-    $show = array(
+      $show = array(
       "user" => $userID,
       "shoppingList" => $shoppingListID,
       "product" => $tmp);
 
-    return $this->redirectToRoute('shoppinglist_show', array('userID' => $userID, 'shoppingListID' => $shoppingListID));
+      return $this->redirectToRoute('shoppinglist_show', array('userID' => $userID, 'shoppingListID' => $shoppingListID));
   }
 
   /**
@@ -102,17 +102,17 @@ class ProductController extends Controller
    */
   public function editAction(Request $request, Product $product)
   {
-    $deleteForm = $this->createDeleteForm($product);
-    $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
-    $editForm->handleRequest($request);
+      $deleteForm = $this->createDeleteForm($product);
+      $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
+      $editForm->handleRequest($request);
 
-    if ($editForm->isSubmitted() && $editForm->isValid()) {
-      $this->getDoctrine()->getManager()->flush();
+      if ($editForm->isSubmitted() && $editForm->isValid()) {
+          $this->getDoctrine()->getManager()->flush();
 
-      return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
-    }
+          return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
+      }
 
-    return $this->render('product/edit.html.twig', array(
+      return $this->render('product/edit.html.twig', array(
       'product' => $product,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
@@ -125,19 +125,40 @@ class ProductController extends Controller
    * @Route("/{id}", name="product_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, Product $product)
-  {
-    $form = $this->createDeleteForm($product);
-    $form->handleRequest($request);
+   public function deleteAction(Request $request, $userID, $shoppingListID)
+   {
+       if ($userID<1) {
+           return new JsonResponse(array('error' => 'user'));
+       }
+       if ($shoppingListID<1) {
+           return new JsonResponse(array('error' => 'shoppingList'));
+       }
+       if ($productID<1) {
+           return new JsonResponse(array('error' => 'product'));
+       }
 
-    if ($form->isSubmitted() && $form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->remove($product);
-      $em->flush();
-    }
+       $em = $this->getDoctrine()->getManager();
+       $user = $em->getRepository('AppBundle:User')->find($userID);
+       if ($user==null) {
+           return new JsonResponse(array('error' => 'user'));
+       }
+       $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
+       if ($shoppingListID>count($shoppingLists)) {
+           return new JsonResponse(array('error' => 'shoppingList'));
+       }
+       $shoppingList = $shoppingLists[$shoppingListID-1];
+       $products = $em->getRepository('AppBundle:ShoppingList')->findByShoppingList($shoppingListID);
+       if ($productID>count($products)) {
+           return new JsonResponse(array('error' => 'product'));
+       }
+       $product = $products[$productID-1];
 
-    return $this->redirectToRoute('product_index');
-  }
+
+       $em->remove($shoppingList);
+       $em->flush();
+
+       return $this->redirectToRoute('product_index', array('userID' => $userID, 'shoppingListID' => $shoppingListID, 'productID' => $productID));
+   }
 
   /**
    * Creates a form to delete a product entity.
@@ -148,7 +169,7 @@ class ProductController extends Controller
    */
   private function createDeleteForm(Product $product)
   {
-    return $this->createFormBuilder()
+      return $this->createFormBuilder()
       ->setAction($this->generateUrl('product_delete', array('id' => $product->getId())))
       ->setMethod('DELETE')
       ->getForm()

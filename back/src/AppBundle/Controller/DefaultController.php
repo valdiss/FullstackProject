@@ -10,14 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use JMS\SerializerBundle\Annotation\ExclusionPolicy;
-use JMS\SerializerBundle\Annotation\Exclude;
-
-$encoders = array(new JsonEncoder());
-$normalizers = array(new ObjectNormalizer());
-
-$serializer = new Serializer($normalizers, $encoders);
 
 
 class DefaultController extends Controller
@@ -36,20 +28,14 @@ class DefaultController extends Controller
      * @Route("/myshoppinglist", name="shoppinglistpage")
      * @Method({"GET", "POST"})
      */
+     
     public function megaAction(Request $request)
     {
 
-//      $postparams = $request->request->all();
       $postparams = json_decode($request->getContent());
 
         return new Response(print_r($postparams, true)) ;
 
 
-
-
-
-        $serializer = $this->get('serializer');  /* $this->container->get */
-      $jsonContent = $serializer->serialize($jsonContent, 'json');
-        return new Response($jsonContent); // should be $reports as $doctrineobject is not serialized
     }
 }

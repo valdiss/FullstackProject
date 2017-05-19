@@ -52,7 +52,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
   //fonction qui s'applique a la validation du formulaire
   $scope.create = function() {
     //récupération des valeurs mises dans le formulaire, et transformation sous forme de JSON
-    newItem = JSON.stringify({article: $scope.newItem.article, quantity: $scope.newItem.quantity, bought: false, action: 'create', category: $scope.newItem.category});
+    newItem = JSON.stringify({article: $scope.newItem.article, quantity: $scope.newItem.quantity, bought: 0, action: 'create', category: $scope.newItem.category});
     //reset des valeurs dans les champs du formulaire
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
