@@ -35,7 +35,7 @@ class ProductController extends Controller
     if($user==NULL) {
       return new JsonResponse(array('error' => 'user'));
     }
-    $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
+    $shoppingLists = $user->getShoppingLists();
     if($shoppingListID>count($shoppingLists)) {
       return new JsonResponse(array('error' => 'shoppingList'));
     }
@@ -70,12 +70,12 @@ class ProductController extends Controller
     if($user==NULL) {
       return new JsonResponse(array('error' => 'user'));
     }
-    $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
+    $shoppingLists = $user->getShoppingLists();
     if($shoppingListID>count($shoppingLists)) {
       return new JsonResponse(array('error' => 'shoppingList'));
     }
     $shoppingList = $shoppingLists[$shoppingListID-1];
-    $products = $em->getRepository('AppBundle:ShoppingList')->findByShoppingList($shoppingListID);
+    $products = $shoppingList->getProducts();
     if($productID>count($products)) {
       return new JsonResponse(array('error' => 'product'));
     }
@@ -91,7 +91,7 @@ class ProductController extends Controller
       "shoppingList" => $shoppingListID,
       "product" => $tmp);
 
-    return $this->redirectToRoute('shoppinglist_show', array('userID' => $userID, 'shoppingListID' => $shoppingListID));
+    return new JsonResponse($show);
   }
 
   /**

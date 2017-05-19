@@ -27,13 +27,16 @@ class ShoppingListController extends Controller
     $em = $this->getDoctrine()->getManager();
     $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findAll();
 
-    $show = array();
+    $tmp = array();
     foreach($shoppingLists as $shoppingList) {
-      $tmp = array("id" => $shoppingList->getId(), "name" => $shoppingList->getName());
-      array_push($show, $tmp);
+      $tmp2 = array("id" => $shoppingList->getId(), "name" => $shoppingList->getName());
+      array_push($tmp, $tmp2);
     }
+    $show = array(
+      'user' => $userID,
+      'shoppingLists' => $tmp);
 
-    return new JsonResponse(array('user' => $userID, 'shoppingLists' => $show));
+    return new JsonResponse($show);
   }
 
   /**
@@ -79,7 +82,7 @@ class ShoppingListController extends Controller
     if($user==NULL) {
       return new JsonResponse(array('error' => 'user'));
     }
-    $shoppingLists = $em->getRepository('AppBundle:ShoppingList')->findByUser($userID);
+    $shoppingLists = $user->getShoppingLists();
     if($shoppingListID>count($shoppingLists)) {
       return new JsonResponse(array('error' => 'shoppingList'));
     }
@@ -93,12 +96,15 @@ class ShoppingListController extends Controller
         "quantity" => $product->getQuantity(),
         "bought" => $product->getBought()));
     }
-    $show = array(
+    $tmp2 = array(
       "id" => $shoppingList->getId(),
       "name" => $shoppingList->getName(),
       "products" => $tmp);
+    $show = array(
+      'user' => $userID,
+      'shoppingList' => $tmp2);
 
-    return new JsonResponse(array('user' => $userID, 'shoppingList' => $show));
+    return new JsonResponse($show);
   }
 
   /**
