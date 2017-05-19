@@ -5,9 +5,11 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
   //configuration des parametres la methode get
   var get = {
     method: 'GET',
-    url: '/someUrl'
+    url: '/myshoppinglist'
   };
   //configuration des parametres la methode post
+
+  posturl = '/myshoppinglist';
 
   $scope.list = [
     {
@@ -57,11 +59,11 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
 
   //fonction de raffraichissement afin d'actualiser
   $scope.getList = function() {
-    console.log('getList called');
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
       $scope.list = response;
+      console.log('getList success');
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
@@ -70,7 +72,6 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
 
   //Appel de getList au chargement du DOM
   angular.element(document).ready(function() {
-    console.log('getList called');
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
