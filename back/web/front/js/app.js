@@ -11,37 +11,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
 
   posturl = '/myshoppinglist';
 
-  $scope.list=[{
-      "product": "Pomme",
-      "quantity": 5,
-      "bought": false,
-      "category": 'fruitsAndVegetables'
-    },
-    {
-      "product": "Poire",
-      "quantity": 2,
-      bought: false,
-      "category": 'fruitsAndVegetables'
-    },
-    {
-      "product": "Kiwi",
-      "quantity": 25,
-      bought: false,
-      "category": 'fruitsAndVegetables'
-    },
-    {
-      "product": "Savon",
-      "quantity": 25,
-      "bought": false,
-      "category": 'other'
-    },
-    {
-      "product": "Bonbons",
-      "quantity": 25,
-      "bought": false,
-      "category": 'dry'
-    }
-  ];
+  $scope.list=[];
 
   //fonction de reset des champs du formulaire
   $scope.reset = function() {
