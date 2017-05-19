@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>ShoppingList</title>
-  <link rel="stylesheet" href="front/css/master.css">
   <link rel="stylesheet" href="front/css/bootstrap.min.css">
+  <link rel="stylesheet" href="front/css/master.css">
   <script src="front/js/angular.js" charset="utf-8"></script>
 </head>
 
@@ -14,7 +14,7 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div>
-          <img alt="TriAngular" class="center-block" src="http://kaanguven.com/uploads/images/triangle.png">
+          <h1 class="text-center">My Shopping List</h1>
         </div>
       </div>
     </nav>
@@ -22,9 +22,31 @@
   <div ng-controller='shoppingListController' class="container">
     <div class="row">
       <div class="col-md-6">
-        <div ng-repeat='item in list'>
-          <div class="row">
-            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}, {{item.category}}</div>
+        <div>
+          <h2>Sec</h2>
+          <div class="row" ng-if="item.category === 'sec'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <h2>FL</h2>
+          <div class="row" ng-if="item.category === 'FL'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <h2>UF</h2>
+          <div class="row" ng-if="item.category === 'uf'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
+            <div class="col-md-6">
+              <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
+            </div>
+          </div>
+          <h2>autre</h2>
+          <div class="row" ng-if="item.category === 'autre'" ng-repeat='item in list'>
+            <div class="col-md-6 " boughtData={{item.bought}}>{{item.product}} : {{item.quantity}}</div>
             <div class="col-md-6">
               <button type="button" name="button" class="btn btn-success" ng-click="buy(item)" >-OK-</button>
             </div>
@@ -35,16 +57,25 @@
 
       <div class="col-md-6">
         <form novalidate class="simple-form">
-          <label>Article: <input type="text" ng-model="newItem.article" required /></label><br />
-          <label>Quantity: <input type="number" ng-model="newItem.quantity" min=1 required/></label><br />
-          <label>Category:<select ng-model="newItem.category">
-            <option value="dry">Sec</option>
-            <option value="fruitsAndVegetables">Fruits et Légumes</option>
-            <option value="fresh">Ultra Frais</option>
-            <option value="other">Autre</option>
-          </select></label><br>
-          <input type="button" ng-click="reset()" value="Reset" />
-          <input type="button" ng-click="create()" value="Save" />
+          <div class="form-group">
+            <label>Article: </label>
+            <input type="text" ng-model="newItem.article" required class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Quantity: </label>
+            <input type="number" ng-model="newItem.quantity" min=1 required/>
+          </div>
+          <div class="form-group">
+            <label>Category:</label>
+            <select ng-model="newItem.category" class="form-control">
+              <option value="dry">Sec</option>
+              <option value="fruitsAndVegetables">Fruits et Légumes</option>
+              <option value="fresh">Ultra Frais</option>
+              <option value="other">Autre</option>
+            </select>
+          </div>
+          <input type="button" ng-click="reset()" value="Reset" class="btn btn-primary" />
+          <input type="submit" ng-click="create()" value="Save" class="btn btn-primary"/>
         </form>
       </div>
     </div>

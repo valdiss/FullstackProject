@@ -28,6 +28,12 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
       "quantity": "25",
       "bought": "false",
       "category": 'FL'
+    },
+    {
+      "product": "savon",
+      "quantity": "25",
+      "bought": "false",
+      "category": 'autre'
     }
   ];
 
@@ -55,7 +61,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
   $scope.buy = function(item) {
     item.bought = true;
   };
-  
+
   //fonction de raffraichissement afin d'actualiser
   $scope.getList = function() {
     $http(get).then(function successCallback(response) {
