@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Shoppinglists list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shoppingList in shoppingLists %}
+            <tr>
+                <td><a href="{{ path('shoppinglist_show', { 'id': shoppingList.id }) }}">{{ shoppingList.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('shoppinglist_show', { 'id': shoppingList.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('shoppinglist_edit', { 'id': shoppingList.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shoppinglist_new') }}">Create a new shoppingList</a>
+        </li>
+    </ul>
+{% endblock %}

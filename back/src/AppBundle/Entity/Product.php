@@ -12,130 +12,178 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+  /**
+   * @var int
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Name", type="string", length=255, unique=true)
+   */
+  private $name;
+
+  /**
+   * @var int
+   *
+   * @ORM\Column(name="Quantity", type="integer")
+   */
+  private $quantity;
+
+  /**
+   * @var bool
+   *
+   * @ORM\Column(name="Bought", type="boolean")
+   */
+  private $bought;
+
+
+  /**
+   * Get id
+   *
+   * @return int
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  /**
+   * Set name
+   *
+   * @param string $name
+   *
+   * @return Product
+   */
+  public function setName($name)
+  {
+    $this->name = $name;
+
+    return $this;
+  }
+
+  /**
+   * Get name
+   *
+   * @return string
+   */
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  /**
+   * Set quantity
+   *
+   * @param integer $quantity
+   *
+   * @return Product
+   */
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+
+    return $this;
+  }
+
+  /**
+   * Get quantity
+   *
+   * @return int
+   */
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
+
+  /**
+   * Set bought
+   *
+   * @param boolean $bought
+   *
+   * @return Product
+   */
+  public function setBought($bought)
+  {
+    $this->bought = $bought;
+
+    return $this;
+  }
+
+  /**
+   * Get bought
+   *
+   * @return bool
+   */
+  public function getBought()
+  {
+    return $this->bought;
+  }
+
+
+
+  /**
+   * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+   * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+   */
+  private $category;
+
+  /**
+   * @ORM\ManyToOne(targetEntity="ShoppingList", inversedBy="products")
+   * @ORM\JoinColumn(name="shoppinglist_id", referencedColumnName="id")
+   */
+  private $shoppinglist;
 
     /**
-     * @var string
+     * Set category
      *
-     * @ORM\Column(name="Name", type="string", length=255, unique=true)
-     */
-    private $name;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Quantity", type="integer")
-     */
-    private $quantity;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="Bought", type="boolean")
-     */
-    private $bought;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
+     * @param \AppBundle\Entity\Category $category
      *
      * @return Product
      */
-    public function setName($name)
+    public function setCategory(\AppBundle\Entity\Category $category = null)
     {
-        $this->name = $name;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get category
      *
-     * @return string
+     * @return \AppBundle\Entity\Category
      */
-    public function getName()
+    public function getCategory()
     {
-        return $this->name;
+        return $this->category;
     }
 
     /**
-     * Set quantity
+     * Set shoppinglist
      *
-     * @param integer $quantity
+     * @param \AppBundle\Entity\ShoppingList $shoppinglist
      *
      * @return Product
      */
-    public function setQuantity($quantity)
+    public function setShoppinglist(\AppBundle\Entity\ShoppingList $shoppinglist = null)
     {
-        $this->quantity = $quantity;
+        $this->shoppinglist = $shoppinglist;
 
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get shoppinglist
      *
-     * @return int
+     * @return \AppBundle\Entity\ShoppingList
      */
-    public function getQuantity()
+    public function getShoppinglist()
     {
-        return $this->quantity;
+        return $this->shoppinglist;
     }
-
-    /**
-     * Set bought
-     *
-     * @param boolean $bought
-     *
-     * @return Product
-     */
-    public function setBought($bought)
-    {
-        $this->bought = $bought;
-
-        return $this;
-    }
-
-    /**
-     * Get bought
-     *
-     * @return bool
-     */
-    public function getBought()
-    {
-        return $this->bought;
-    }
-
-
-
-    /**
-      * @ORM\ManyToOne(targetEntity="Category", inversedBy="Product")
-      * @ORM\JoinColumn(name="Category_id", referencedColumnName="id")
-      */
-     private $Category;
-
-     /**
-  * @ORM\ManyToOne(targetEntity="ShoppingList, inversedBy="Product")
-  * @ORM\JoinColumn(name="ShoppingList_id", referencedColumnName="id")
-  */
- private $ShoppingList;
 }
