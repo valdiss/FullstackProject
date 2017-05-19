@@ -1,4 +1,4 @@
-var shoppingList = angular.module('ShoppingList', []);
+var shoppingList = angular.module('shoppingList', []);
 shoppingList.controller('shoppingListController', function shoppingListController($scope) {
 
   var getList = {
@@ -10,6 +10,11 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     method : 'POST',
     url: '/someUrl',
     data:{}
+  }
+
+  function reset (){
+    $scope.newItem.article = '';
+    $scope.newItem.quantity = '';
   }
 
   $http(getList).then(function successCallback(response) {

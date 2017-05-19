@@ -20,17 +20,24 @@
     </nav>
   </div>
   <div ng-controller='shoppingListController' class="container">
-    <button type="button" name="button" class="btn btn-success">Refresh</button>
-    <ul>
-      <li ng-repeat='item from list'>{{item.article}}</li>
-    </ul>
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <li ng-repeat='item in list'>{{item.article}}</li>
+        </ul>
+      </div>
 
-    <form novalidate class="simple-form">
-      <label>Article: <input type="text" ng-model="newItem.article" /></label><br />
-      <label>Quantity: <input type="email" ng-model="newItem.quantity" /></label><br />
-      <input type="button" ng-click="reset()" value="Reset" />
-      <input type="submit" ng-click="create()" value="Save" />
-    </form>
+      <div class="col-md-6">
+        <form novalidate class="simple-form">
+          <label>Article: <input type="text" ng-model="newItem.article" /></label><br />
+          <label>Quantity: <input type="email" ng-model="newItem.quantity" /></label><br />
+          <input type="button" ng-click="reset()" value="Reset" />
+          <input type="submit" ng-click="create()" value="Save" />
+        </form>
+      </div>
+    </div>
+    <hr>
+    <button type="button" name="button" class="btn btn-success" ng-click="getList()">Refresh</button>
   </div>
 </body>
 <script src="js/app.js" charset="utf-8"></script>
