@@ -5,7 +5,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
   //configuration des parametres la methode get
   var get = {
     method: 'GET',
-    url: '/myshoppinglist'
+    url: '/myshoppinglist/1/1/show'
   };
   //configuration des parametres la methode post
 
