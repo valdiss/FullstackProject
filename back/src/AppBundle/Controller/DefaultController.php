@@ -22,28 +22,31 @@ $serializer = new Serializer($normalizers, $encoders);
 
 class DefaultController extends Controller
 {
-    /**
+  /**
    * @Route("/", name="homepage")
-        *  @Method({"GET", "POST"})
+   *  @Method({"GET", "POST"})
    */
   public function indexAction()
   {
-      return new Response(file_get_contents('./ng-index.html'), 200);
+    return new Response(file_get_contents('./ng-index.html'), 200);
   }
 
-
-    /**
-     * @Route("/myshoppinglist", name="shoppinglistpage")
-     * @Method({"GET", "POST"})
-     */
-    public function megaAction(Request $request)
-    {
-        $postparams = json_decode($request->getContent());
-
-        return new Response(print_r($postparams, true)) ;
-
-        $serializer = $this->get('serializer');  /* $this->container->get */
-      $jsonContent = $serializer->serialize($jsonContent, 'json');
-        return new Response($jsonContent); // should be $reports as $doctrineobject is not serialized
+  /**
+   * @Route("/myshoppinglist", name="shoppinglistpage")
+   * @Method({"GET", "POST"})
+   */
+  public function megaAction(Request $request)
+  {
+    $params = json_decode($request->getContent(), true);
+    var_dump($params);
+    if($params['action']=="create") {
+      if($params['article']) return $this->redirectToRoute('product_new', array('userID' => 1, 'shoppingListID' => 1));
     }
+
+    return new Response(print_r($params, true)) ;
+
+    $serializer = $this->get('serializer');  /* $this->container->get */
+    $jsonContent = $serializer->serialize($jsonContent, 'json');
+    return new Response($jsonContent); // should be $reports as $doctrineobject is not serialized
+  }
 }

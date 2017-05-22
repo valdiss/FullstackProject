@@ -5,7 +5,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
   //configuration des parametres la methode get
   var get = {
     method: 'GET',
-    url: '/shoppinglist/1/show'
+    url: '/myshoppinglist/1/1/show'
   };
   //configuration des parametres la methode post
 
@@ -27,19 +27,21 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
     //post de l'item créé à la base de donnée
-    $http.post(posturl, newItem).then(function successCallback(response) {
-      console.log('post success, here\'s the response: ' + response.data);
+    $http.post('/myshoppinglist/1/1/new', newItem).then(function successCallback(response) {
+      console.log('post success, here\'s the response: ');
+      console.log(response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
     });
-
+    $scope.getList();
   };
 
   $scope.buy = function(item) {
     item.bought = true;
     newChange = JSON.stringify(item);
     $http.post(posturl, newChange).then(function successCallback(response) {
-      console.log('change success, here\'s the response: ' + response.data);
+      console.log('change success, here\'s the response: ');
+      console.log(response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
     })
@@ -50,8 +52,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      $scope.list = response.data;
-      console.log('getList success');
+      $scope.list = response.data.shoppingList;
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
@@ -63,11 +64,11 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-
-      $scope.list = response.data;
+      $scope.list = response.data.shoppingList;
+      console.log('getList success' + $scope.list);
       console.log($scope.list);
     }, function errorCallback(response) {
-      // called asynchronously if an error occurs
+      // called asynchronously 1if an error occurs
       // or server returns response with an error status.
     })
   })

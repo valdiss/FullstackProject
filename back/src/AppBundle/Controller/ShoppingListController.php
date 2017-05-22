@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Shoppinglist controller.
  *
- * @Route("/shoppinglist")
+ * @Route("/myshoppinglist")
  */
 class ShoppingListController extends Controller
 {
@@ -165,7 +165,6 @@ class ShoppingListController extends Controller
       return new JsonResponse(array('error' => 'shoppinglist'));
     }
     $shoppingList = $shoppingLists[$shoppingListID-1];
-    echo $shoppingList->getId();
 
     $em->remove($shoppingList);
     $em->flush();

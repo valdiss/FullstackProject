@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Product controller.
  *
- * @Route("/product")
+ * @Route("/myshoppinglist")
  */
 class ProductController extends Controller
 {
@@ -24,6 +24,8 @@ class ProductController extends Controller
    */
   public function newAction(Request $request, $userID, $shoppingListID)
   {
+    $params = json_decode($request->getContent(), true);
+
     if($userID<1) {
       return new JsonResponse(array('error' => 'user'));
     }
@@ -41,7 +43,7 @@ class ProductController extends Controller
     }
     $shoppingList = $shoppingLists[$shoppingListID-1];
 
-    $product = new Product($shoppingList, null, "Lait", 12);
+    $product = new Product($shoppingList, null, $params['article'], $params['quantity']);
     $em->persist($product);
     $em->flush();
 
