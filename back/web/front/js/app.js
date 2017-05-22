@@ -27,8 +27,9 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $scope.newItem.article = '';
     $scope.newItem.quantity = '';
     //post de l'item créé à la base de donnée
-    $http.post(posturl, newItem).then(function successCallback(response) {
-      console.log('post success, here\'s the response: ' + response.data);
+    $http.post('/myshoppinglist/1/1/new', newItem).then(function successCallback(response) {
+      console.log('post success, here\'s the response: ');
+      console.log(response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
     })
@@ -38,7 +39,8 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     item.bought = true;
     newChange = JSON.stringify(item);
     $http.post(posturl, newChange).then(function successCallback(response) {
-      console.log('change success, here\'s the response: ' + response.data);
+      console.log('change success, here\'s the response: ');
+      console.log(response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
     })
@@ -62,6 +64,8 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
+
+      console.log(response);
 
       $scope.list = response.data;
       console.log($scope.list);
