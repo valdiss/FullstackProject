@@ -31,7 +31,6 @@ class DefaultController extends Controller
     return new Response(file_get_contents('./ng-index.html'), 200);
   }
 
-
   /**
    * @Route("/myshoppinglist", name="shoppinglistpage")
    * @Method({"GET", "POST"})

@@ -32,7 +32,8 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
       console.log(response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
-    })
+    });
+    $scope.getList();
   };
 
   $scope.buy = function(item) {
@@ -51,8 +52,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      $scope.list = response.data;
-      console.log('getList success');
+      $scope.list = response.data.shoppingList;
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
@@ -64,13 +64,11 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
     $http(get).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-
-      console.log(response);
-
-      $scope.list = response.data;
+      $scope.list = response.data.shoppingList;
+      console.log('getList success' + $scope.list);
       console.log($scope.list);
     }, function errorCallback(response) {
-      // called asynchronously if an error occurs
+      // called asynchronously 1if an error occurs
       // or server returns response with an error status.
     })
   })
