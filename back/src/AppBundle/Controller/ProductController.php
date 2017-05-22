@@ -22,10 +22,13 @@ class ProductController extends Controller
    * @Route("/{userID}/{shoppingListID}/new", name="product_new")
    * @Method({"GET", "POST"})
    */
-  public function newAction(Request $request, $userID, $shoppingListID)
+  public function newProduct(Request $request, $userID, $shoppingListID)
   {
     $params = json_decode($request->getContent(), true);
 
+    if(!is_numeric($userID) || !is_numeric($shoppingListID)) {
+      return new JsonResponse(array('error' => 'format'));
+    }
     if($userID<1) {
       return new JsonResponse(array('error' => 'user'));
     }
@@ -42,8 +45,13 @@ class ProductController extends Controller
       return new JsonResponse(array('error' => 'shoppingList'));
     }
     $shoppingList = $shoppingLists[$shoppingListID-1];
+    if($params['category']) {
+      $category = $this->forward('AppBundle:CategoryController:searchCategory', array('userID' => $userID, 'category' => $params['category']));
+    } else {
+      $category = null;
+    }
 
-    $product = new Product($shoppingList, null, $params['article'], $params['quantity']);
+    $product = new Product($shoppingList, $category, $params['article'], $params['quantity']);
     $em->persist($product);
     $em->flush();
 
@@ -56,7 +64,7 @@ class ProductController extends Controller
    * @Route("/{userID}/{shoppingListID}/{productID}/show", name="product_show")
    * @Method("GET")
    */
-  public function showAction(Request $request, $userID, $shoppingListID, $productID)
+  public function showProduct(Request $request, $userID, $shoppingListID, $productID)
   {
     if($userID<1) {
       return new JsonResponse(array('error' => 'user'));
@@ -96,13 +104,15 @@ class ProductController extends Controller
     return new JsonResponse($show);
   }
 
+
+  //Not implemented yet
   /**
    * Displays a form to edit an existing product entity.
    *
    * @Route("/{id}/edit", name="product_edit")
    * @Method({"GET", "POST"})
    */
-  public function editAction(Request $request, Product $product)
+  public function editProduct(Request $request, Product $product)
   {
     $deleteForm = $this->createDeleteForm($product);
     $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
@@ -127,7 +137,7 @@ class ProductController extends Controller
    * @Route("/{id}", name="product_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, Product $product)
+  public function deleteProduct(Request $request, Product $product)
   {
     $form = $this->createDeleteForm($product);
     $form->handleRequest($request);
@@ -139,21 +149,5 @@ class ProductController extends Controller
     }
 
     return $this->redirectToRoute('product_index');
-  }
-
-  /**
-   * Creates a form to delete a product entity.
-   *
-   * @param Product $product The product entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createDeleteForm(Product $product)
-  {
-    return $this->createFormBuilder()
-      ->setAction($this->generateUrl('product_delete', array('id' => $product->getId())))
-      ->setMethod('DELETE')
-      ->getForm()
-      ;
   }
 }
