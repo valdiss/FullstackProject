@@ -5,7 +5,7 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
   //configuration des parametres la methode get
   var get = {
     method: 'GET',
-    url: '/myshoppinglist/1/1/show'
+    url: '/shoppinglist/1/show'
   };
   //configuration des parametres la methode post
 
@@ -31,7 +31,8 @@ shoppingList.controller('shoppingListController', function shoppingListControlle
       console.log('post success, here\'s the response: ' + response.data);
     }, function errorCallback(response) {
       console.log('error on the post method');
-    })
+    });
+
   };
 
   $scope.buy = function(item) {
