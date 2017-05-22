@@ -17,62 +17,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class CategoryController extends Controller
 {
   /**
-   * Search a category
-   *
-   * @param Category $category The category entity
-   * @return \Symfony\Component\Form\Form The form
-   */
-  public function searchCategory(Request $request, $userID, $name)
-  {
-    if(!is_numeric($userID) || is_numeric($name)) {
-      return new JsonResponse(array('error' => 'format'));
-    }
-    if($userID<1) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    if($name=="") {
-      return new JsonResponse(array('error' => 'category'));
-    }
-    $em = $this->getDoctrine()->getManager();
-    $user = $em->getRepository('AppBundle:User')->find($userID);
-    if($user==NULL) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    $categories = $user->getCategories();
-    foreach($categories as $category) {
-      if($name==$category->getName()) return $category;
-    }
-    return $this->forward('AppBundle:CategoryController:newCategory', array('userID' => $userID, 'category' => $name));
-  }
-
-  /**
-   * create a category
-   *
-   * @param Category $category The category entity
-   * @return \Symfony\Component\Form\Form The form
-   */
-  public function newCategory(Request $request, $userID, $name)
-  {
-    if(!is_numeric($userID) || is_numeric($name)) {
-      return new JsonResponse(array('error' => 'format'));
-    }
-    if($userID<1) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    if($name=="") {
-      return new JsonResponse(array('error' => 'category'));
-    }
-    $em = $this->getDoctrine()->getManager();
-    $user = $em->getRepository('AppBundle:User')->find($userID);
-    if($user==NULL) {
-      return new JsonResponse(array('error' => 'user'));
-    }
-    $category = new Category($user, $name);
-    return $category;
-  }
-
-
-  /**
    * Lists all category entities.
    *
    * @Route("/", name="category_index")
@@ -86,32 +30,6 @@ class CategoryController extends Controller
 
     return $this->render('category/index.html.twig', array(
       'categories' => $categories,
-    ));
-  }
-
-  /**
-   * Creates a new category entity.
-   *
-   * @Route("/new", name="category_new")
-   * @Method({"GET", "POST"})
-   */
-  public function newAction(Request $request)
-  {
-    $category = new Category();
-    $form = $this->createForm('AppBundle\Form\CategoryType', $category);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($category);
-      $em->flush();
-
-      return $this->redirectToRoute('category_show', array('id' => $category->getId()));
-    }
-
-    return $this->render('category/new.html.twig', array(
-      'category' => $category,
-      'form' => $form->createView(),
     ));
   }
 

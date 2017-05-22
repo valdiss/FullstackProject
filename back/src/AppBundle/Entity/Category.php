@@ -63,7 +63,7 @@ class Category
 
   /**
    * @ORM\ManyToOne(targetEntity="User", inversedBy="categories")
-   * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
    */
   private $user;
   /**
