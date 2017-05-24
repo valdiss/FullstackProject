@@ -7,7 +7,7 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
     dbal:
-      url: '%mysql://env(DATABASE_USER):env(DATABASE_PASSWORD)@env(DATABASE_HOST):env(DATABASE_PORT)/env(DATABASE_NAME)?charset=UTF-8%'
+      url: '%env(DATABASE_URL)%'
 
 monolog:
     handlers:
