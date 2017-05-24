@@ -7,7 +7,13 @@ doctrine:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
     dbal:
-      url: '%env(DATABASE_URL)%'
+        driver: pdo_mysql
+        host: '%env(DATABASE_HOST)%'
+        port: '%env(DATABASE_PORT)%'
+        dbname: '%env(DATABASE_NAME)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+        charset: UTF8
 
 monolog:
     handlers:
