@@ -1,0 +1,18 @@
+{
+  "items": [{
+      "product": "Pomme",
+      "quantity": "5",
+      "bought": "false"
+    },
+    {
+      "product": "Poire",
+      "quantity": "2",
+      "bought": "false"
+    },
+    {
+      "product": "kiwi",
+      "quantity": "25",
+      "bought": "false"
+    }
+  ]
+}

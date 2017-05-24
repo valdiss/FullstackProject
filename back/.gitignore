@@ -14,6 +14,3 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-*~
-*.swp
-*vendor*
