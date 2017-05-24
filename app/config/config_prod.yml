@@ -7,13 +7,7 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
     dbal:
-        driver: pdo_mysql
-        host: '%env(DATABASE_HOST)%'
-        port: '%env(DATABASE_PORT)%'
-        dbname: '%env(DATABASE_NAME)%'
-        user: '%env(DATABASE_USER)%'
-        password: '%env(DATABASE_PASSWORD)%'
-        charset: UTF8
+      url: '%mysql://env(DATABASE_USER):env(DATABASE_PASSWORD)@env(DATABASE_HOST):env(DATABASE_PORT)/env(DATABASE_NAME)?charset=UTF-8%'
 
 monolog:
     handlers:
